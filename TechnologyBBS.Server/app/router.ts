@@ -1,7 +1,5 @@
 import { Application } from 'egg';
-
+import RouterApi from './router/api';
 export default (app: Application) => {
-  const { controller, router } = app;
-
-  router.get('/', controller.home.index);
+  RouterApi(app);
 };

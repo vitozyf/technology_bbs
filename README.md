@@ -6,6 +6,8 @@
 
 服务端采用`egg`+`typescript`+`mysql`+`TypeORM`+`log4js`实现
 
+- API版本控制
+
 ### TechnologyBBS.Web
 
 PC前端采用`react`+`axios`+`antd`实现
