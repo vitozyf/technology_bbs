@@ -18,23 +18,31 @@ export class Account {
   })
   is_delete: boolean;
 
+  // 用户名
   @Column({
     length: 500,
   })
   user_name: string;
 
+  // 密码
+  @Column()
+  password: string;
+
+  // 地址
   @Column({
     type: 'text',
     nullable: true,
   })
   address: string;
 
+  // 年龄
   @Column({
     type: 'int',
     nullable: true,
   })
   age: number;
 
+  // 性别
   @Column({
     type: 'int',
     width: 10,
@@ -42,6 +50,7 @@ export class Account {
   })
   gender: number;
 
+  // 标签
   @Column({
     type: 'simple-array',
     nullable: true,

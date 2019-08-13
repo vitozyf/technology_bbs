@@ -1,22 +1,21 @@
 import { Controller } from 'egg';
-import { Account } from '../../model/account';
-import { getConnection } from 'typeorm';
 
 export default class HomeController extends Controller {
   public async login() {
     const { ctx } = this;
 
-    const account = new Account();
-    account.age = 18;
-    account.address = 'ccc';
-    account.user_name = 'vito3';
-    account.gender = 0;
-    account.tags = ['a', 'b'];
-    const db = getConnection();
-    db.manager.save(account).then(account => {
-      console.log('account has been saved. Photo id is', account.id);
-    });
-
     ctx.body = await ctx.service.test.sayHi('egg');
+  }
+
+  public async signin() {
+    const { ctx } = this;
+    const { user_name, password } = ctx.request.body;
+    const Users = await ctx.service.account.getUserByUserName(user_name);
+    console.log(user_name, password);
+    if (Users.length > 0) {
+      ctx.body = { Code: 1, Message: '用户已存在' };
+      return;
+    }
+    ctx.body = { Code: 0 };
   }
 }

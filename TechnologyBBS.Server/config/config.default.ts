@@ -1,4 +1,7 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+
+const CsrfIgnoreUrl = ['signin', 'login'];
+
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -11,6 +14,18 @@ export default (appInfo: EggAppInfo) => {
 
   config.logger = {
     dir: require('path').join(appInfo.root, 'logs'),
+  };
+
+  config.security = {
+    csrf: {
+      cookieName: 'csrfToken', // Cookie 中的字段名，默认为 csrfToken
+      ignore: ctx => {
+        if (CsrfIgnoreUrl.find(url => new RegExp(url).test(ctx.url))) {
+          return true;
+        }
+        return false;
+      },
+    },
   };
 
   // add your special config in here

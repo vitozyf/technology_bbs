@@ -18,8 +18,8 @@ function handleConfig(config: any, env: string) {
   return config;
 }
 
-// 数据库连接
 async function connectDB(app: Application) {
+  // 数据库连接
   const ConnectionOptions = handleConfig(app.config.typeorm, app.config.env);
   await createConnection(ConnectionOptions);
 }
