@@ -7,6 +7,8 @@
 服务端采用`egg`+`typescript`+`mysql`+`TypeORM`+`log4js`实现
 
 - API版本控制
+- 完整的单元测试
+- 完整日志
 
 ### TechnologyBBS.Web
 

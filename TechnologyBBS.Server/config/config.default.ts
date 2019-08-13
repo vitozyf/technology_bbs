@@ -1,5 +1,4 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -10,9 +9,22 @@ export default (appInfo: EggAppInfo) => {
   // add your egg config in here
   config.middleware = [];
 
+  config.logger = {
+    dir: require('path').join(appInfo.root, 'logs'),
+  };
+
   // add your special config in here
   const bizConfig = {
-    sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
+    typeorm: {
+      type: 'mysql',
+      host: '47.98.240.182',
+      port: 3306,
+      username: 'root',
+      password: 'zyf535069215',
+      database: 'technology_bbs_dev',
+      entities: [__dirname + '/../app/model/*.ts'],
+      synchronize: true,
+    },
   };
 
   // the return config will combines to EggAppConfig

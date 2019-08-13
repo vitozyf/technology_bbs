@@ -1,6 +1,27 @@
-import { EggAppConfig, PowerPartial } from 'egg';
+import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
-export default () => {
+export default (appInfo: EggAppInfo) => {
   const config: PowerPartial<EggAppConfig> = {};
-  return config;
+  config.logger = {
+    dir: require('path').join(appInfo.root, 'logs'),
+  };
+
+  const bizConfig = {
+    typeorm: {
+      type: 'mysql',
+      host: '47.98.240.182',
+      port: 3306,
+      username: 'root',
+      password: 'zyf535069215',
+      database: 'technology_bbs_pro',
+      entities: [__dirname + '/../app/model/*.ts'],
+      synchronize: false,
+    },
+  };
+
+  // the return config will combines to EggAppConfig
+  return {
+    ...config,
+    ...bizConfig,
+  };
 };

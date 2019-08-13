@@ -1,9 +1,3 @@
-# hackernews-async-ts
-
-[Hacker News](https://news.ycombinator.com/) showcase using typescript && egg
-
-## QuickStart
-
 ### Development
 
 ```bash
@@ -31,3 +25,5 @@ $ npm start
 
 - Node.js 8.x
 - Typescript 2.8+
+
+### typeorm
