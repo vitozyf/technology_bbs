@@ -1,4 +1,4 @@
 {
   "extends": ["tslint-config-egg"],
-  "rules": { "array-bracket-spacing": false }
+  "rules": { "array-bracket-spacing": false, "no-var-requires": false }
 }

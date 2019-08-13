@@ -7,16 +7,33 @@ import { getRepository } from 'typeorm';
  */
 export default class AccountService extends Service {
   /**
-   * getUserByUserName
+   * 根据用户名查找用户
    * @param user_name - user_name
    */
   public async getUserByUserName(user_name: string) {
     const AccountDb = getRepository(Account);
-    const AccountInfo = await AccountDb.find({
+    const UserInfo = await AccountDb.find({
       where: {
         user_name,
       },
     });
-    return AccountInfo;
+    return UserInfo;
+  }
+
+  public async addAccount(userinfo: any) {
+    const AccountDb = getRepository(Account);
+
+    const user = new Account();
+
+    const { user_name, password, mobile, address, age, gender } = userinfo;
+
+    user.user_name = user_name;
+    user.password = password;
+    user.mobile = mobile;
+    user.address = address;
+    user.age = age;
+    user.gender = gender;
+
+    return await AccountDb.save(user);
   }
 }

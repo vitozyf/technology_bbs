@@ -14,9 +14,11 @@ export default (appInfo: EggAppInfo) => {
       username: 'root',
       password: 'zyf535069215',
       database: 'technology_bbs_pro',
-      entities: [__dirname + '/../app/model/*.ts'],
+      entities: [__dirname + '/../app/model/*.js'],
       synchronize: false,
+      charset: 'utf8mb4',
     },
+    passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
   };
 
   // the return config will combines to EggAppConfig

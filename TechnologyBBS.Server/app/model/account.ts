@@ -28,9 +28,15 @@ export class Account {
   @Column()
   password: string;
 
+  // 手机号
+  @Column({
+    length: 11,
+    nullable: true,
+  })
+  mobile: string;
+
   // 地址
   @Column({
-    type: 'text',
     nullable: true,
   })
   address: string;
