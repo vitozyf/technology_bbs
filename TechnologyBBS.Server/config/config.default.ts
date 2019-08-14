@@ -14,6 +14,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.logger = {
     dir: require('path').join(appInfo.root, 'logs'),
+    // outputJSON: true,
   };
 
   config.security = {
@@ -42,6 +43,9 @@ export default (appInfo: EggAppInfo) => {
       charset: 'utf8mb4',
     },
     passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
+    jwt: {
+      secret: 'zufyaehjksbnak',
+    },
   };
 
   // the return config will combines to EggAppConfig

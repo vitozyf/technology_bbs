@@ -11,6 +11,11 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-router-plus',
   },
+
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
 };
 
 export default plugin;

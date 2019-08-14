@@ -8,7 +8,7 @@ import { getRepository } from 'typeorm';
 export default class AccountService extends Service {
   /**
    * 根据用户名查找用户
-   * @param user_name - user_name
+   * @param user_name - 用户名
    */
   public async getUserByUserName(user_name: string) {
     const AccountDb = getRepository(Account);
@@ -20,19 +20,16 @@ export default class AccountService extends Service {
     return UserInfo;
   }
 
+  /**
+   * 新增用户
+   * @param userinfo - 用户注册信息
+   */
   public async addAccount(userinfo: any) {
     const AccountDb = getRepository(Account);
 
     const user = new Account();
 
-    const { user_name, password, mobile, address, age, gender } = userinfo;
-
-    user.user_name = user_name;
-    user.password = password;
-    user.mobile = mobile;
-    user.address = address;
-    user.age = age;
-    user.gender = gender;
+    Object.assign(user, userinfo);
 
     return await AccountDb.save(user);
   }
