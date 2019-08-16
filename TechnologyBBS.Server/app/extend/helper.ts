@@ -8,5 +8,6 @@ export default {
         delete obj[item];
       });
     }
+    return obj;
   },
 };
