@@ -15,17 +15,17 @@ export default class AccountController extends Controller {
 
     const Users = await ctx.service.account.getUserByUserName(user_name);
 
-    if (Users.length === 0) {
+    if (!Users) {
       return ctx.sendRes(1, null, '该用户名未注册');
     }
 
-    if (Users[0].password !== md5(password, this.app.config.passwordKey)) {
+    if (Users.password !== md5(password, this.app.config.passwordKey)) {
       return ctx.sendRes(1, null, '密码错误');
     }
 
-    ctx.helper.delKey(Users[0], 'password');
+    ctx.helper.delKey(Users, 'password');
 
-    return ctx.sendRes(0, Users[0], '登录成功');
+    return ctx.sendRes(0, Users, '登录成功');
   }
 
   /**
@@ -43,7 +43,7 @@ export default class AccountController extends Controller {
     } = ctx.request.body;
     const Users = await ctx.service.account.getUserByUserName(user_name);
 
-    if (Users.length > 0) {
+    if (Users) {
       return ctx.sendRes(1, null, '用户已存在');
     }
     if (!user_name || !password) {

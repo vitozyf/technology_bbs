@@ -12,10 +12,8 @@ export default class AccountService extends Service {
    */
   public async getUserByUserName(user_name: string) {
     const AccountDb = getRepository(Account);
-    const UserInfo = await AccountDb.find({
-      where: {
-        user_name,
-      },
+    const UserInfo = await AccountDb.findOne({
+      user_name,
     });
     return UserInfo;
   }
@@ -31,6 +29,9 @@ export default class AccountService extends Service {
 
     Object.assign(user, userinfo);
 
-    return await AccountDb.save(user);
+    // return await AccountDb.save(user);
+    await AccountDb.insert(user);
+
+    return user;
   }
 }

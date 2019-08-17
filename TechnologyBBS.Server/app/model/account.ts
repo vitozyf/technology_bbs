@@ -16,7 +16,7 @@ export class Account {
     default: 0,
     select: false,
   })
-  is_delete: boolean;
+  is_delete: number;
 
   // 用户名
   @Column({
