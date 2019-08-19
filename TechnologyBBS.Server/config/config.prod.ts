@@ -19,6 +19,9 @@ export default (appInfo: EggAppInfo) => {
       logging: 'all',
     },
     passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
+    jwt: {
+      secret: 'ajhdk**#&%^&#*!^@%*HD(&#^',
+    },
   };
 
   // the return config will combines to EggAppConfig

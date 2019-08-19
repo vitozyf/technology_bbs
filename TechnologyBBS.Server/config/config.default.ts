@@ -10,7 +10,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1565598324709_1528';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = ['jwtverify'];
 
   config.logger = {
     dir: require('path').join(appInfo.root, 'logs'),
@@ -44,7 +44,11 @@ export default (appInfo: EggAppInfo) => {
     },
     passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
     jwt: {
-      secret: 'zufyaehjksbnak',
+      secret: '&$^$&#NBDJBJS&^%$()_+DN',
+    },
+    jwtverify: {
+      name: 'BBS ',
+      expiresIn: '1h',
     },
   };
 
