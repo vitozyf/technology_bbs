@@ -40,7 +40,7 @@ export default (appInfo: EggAppInfo) => {
       database: 'technology_bbs_dev',
       entities: [__dirname + '/../app/model/*.ts'],
       synchronize: true,
-      charset: 'utf8mb4',
+      logging: ['error'],
     },
     passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
     jwt: {

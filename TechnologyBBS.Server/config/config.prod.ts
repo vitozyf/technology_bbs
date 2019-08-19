@@ -16,7 +16,7 @@ export default (appInfo: EggAppInfo) => {
       database: 'technology_bbs_pro',
       entities: [__dirname + '/../app/model/*.js'],
       synchronize: false,
-      charset: 'utf8mb4',
+      logging: 'all',
     },
     passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
   };

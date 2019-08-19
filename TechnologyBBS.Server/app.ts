@@ -2,25 +2,21 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import { Application } from 'egg';
 
-function handleConfig(config: any, env: string) {
-  if (env !== 'prod') {
-    return config;
-  }
-  const keys = ['entities', 'migrations', 'subscribers'];
-  for (const key of keys) {
-    if (config[key]) {
-      const newValue = config[key].map((item: string) => {
-        return item.replace(/\.ts$/, '.js');
-      });
-      config[key] = newValue;
-    }
-  }
-  return config;
+/**
+ * handle database configuration
+ * @param config typeorm-config
+ */
+function handleConfig(config: any) {
+  const common_config = { logger: 'file', charset: 'utf8mb4' };
+  return Object.assign({}, config, common_config);
 }
 
+/**
+ * database connection
+ * @param app Application
+ */
 async function connectDB(app: Application) {
-  // 数据库连接
-  const ConnectionOptions = handleConfig(app.config.typeorm, app.config.env);
+  const ConnectionOptions = handleConfig(app.config.typeorm);
   await createConnection(ConnectionOptions);
 }
 

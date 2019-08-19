@@ -11,6 +11,6 @@ describe('test/app/service/account.test.js', () => {
 
   it('getUserByUserName vito', async () => {
     const result = await ctx.service.account.getUserByUserName('vito');
-    assert(typeof result === 'object');
+    assert(typeof result !== 'undefined');
   });
 });

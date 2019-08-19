@@ -3,9 +3,11 @@
 
 import 'egg';
 import ExportAccount from '../../../app/model/account';
+import ExportTopic from '../../../app/model/topic';
 
 declare module 'egg' {
   interface IModel {
     Account: ReturnType<typeof ExportAccount>;
+    Topic: ReturnType<typeof ExportTopic>;
   }
 }
