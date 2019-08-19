@@ -19,13 +19,49 @@ export class Topic {
   @Column({ type: 'varchar', length: 10000 })
   content: string;
 
-  @Column({ type: 'tinyint', default: 0 })
+  @Column({
+    type: 'tinyint',
+    default: 0,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
+  })
   top: boolean; // 置顶帖
 
-  @Column({ type: 'tinyint', default: 0 })
+  @Column({
+    type: 'tinyint',
+    default: 0,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
+  })
   good: boolean; // 精华帖
 
-  @Column({ type: 'tinyint', default: 0 })
+  @Column({
+    type: 'tinyint',
+    default: 0,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
+  })
   lock: boolean; // 被锁定主题
 
   @Column({ type: 'int', default: 0 })
@@ -43,13 +79,38 @@ export class Topic {
   @Column({ default: () => 'NOW()' })
   last_reply_at: Date; // 最后回复时间
 
-  @Column({ type: 'tinyint', default: 0 })
+  @Column({
+    type: 'tinyint',
+    default: 0,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
+  })
   content_is_html: boolean; // 内容是否为html
 
   @Column({ type: 'varchar' })
   tab: string; // 所属板块： ask 问答； share 分享； job 招聘； good 精华。
 
-  @Column({ type: 'tinyint', default: 0, select: false })
+  @Column({
+    type: 'tinyint',
+    default: 0,
+    select: false,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
+  })
   deleted: boolean;
 
   @CreateDateColumn()

@@ -68,7 +68,19 @@ export class Account {
   @Column({ type: 'varchar', length: 100, nullable: true })
   avatar: string; // 头像
 
-  @Column({ type: 'tinyint', default: 0 })
+  @Column({
+    type: 'tinyint',
+    default: 0,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
+  })
   is_block: boolean; // 是否锁定
 
   @Column({ type: 'int', default: 0 })
