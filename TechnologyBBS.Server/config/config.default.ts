@@ -1,7 +1,5 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
-const CsrfIgnoreUrl = ['signin', 'login'];
-
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -10,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1565598324709_1528';
 
   // add your egg config in here
-  config.middleware = ['jwtverify'];
+  config.middleware = ['errorHandler', 'jwtverify'];
 
   config.logger = {
     dir: require('path').join(appInfo.root, 'logs'),
@@ -19,13 +17,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.security = {
     csrf: {
-      cookieName: 'csrfToken', // Cookie 中的字段名，默认为 csrfToken
-      ignore: ctx => {
-        if (CsrfIgnoreUrl.find(url => new RegExp(url).test(ctx.url))) {
-          return true;
-        }
-        return false;
-      },
+      enable: false,
     },
   };
 
@@ -49,6 +41,7 @@ export default (appInfo: EggAppInfo) => {
     jwtverify: {
       name: 'BBS ',
       expiresIn: '1h',
+      ignoreUrl: ['signin', 'login'],
     },
   };
 

@@ -6,18 +6,16 @@ import { Context } from 'egg';
 export default function jwtverify(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
     const { app } = ctx;
-    const jwtverifyNameExp = new RegExp(app.config.jwtverify.name);
-    const authorization = ctx.header.authorization;
-    const token = authorization
-      ? authorization.splice(jwtverifyNameExp, '')
-      : ''; // 获取jwt
-    const secret = app.config.jwt.secret;
-    try {
+    const IgnoreUrl = app.config.jwtverify.ignoreUrl.find(url => {
+      return new RegExp(url).test(ctx.url);
+    });
+    if (!IgnoreUrl) {
+      const authorization = ctx.header.authorization;
+      const token = authorization
+        ? authorization.replace(new RegExp(app.config.jwtverify.name), '')
+        : ''; // 获取jwt
+      const secret = app.config.jwt.secret;
       await app.jwt.verify(token, secret); // // 解密，获取payload
-    } catch (error) {
-      ctx.logger.error(error);
-      ctx.status = 401;
-      return;
     }
     await next();
   };

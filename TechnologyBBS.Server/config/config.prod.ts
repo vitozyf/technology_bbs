@@ -6,6 +6,18 @@ export default (appInfo: EggAppInfo) => {
     dir: require('path').join(appInfo.root, 'logs'),
   };
 
+  config.security = {
+    csrf: {
+      cookieName: 'csrfToken', // Cookie 中的字段名，默认为 csrfToken
+      ignore: ctx => {
+        if (CsrfIgnoreUrl.find(url => new RegExp(url).test(ctx.url))) {
+          return true;
+        }
+        return false;
+      },
+    },
+  };
+
   const bizConfig = {
     typeorm: {
       type: 'mysql',
