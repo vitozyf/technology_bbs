@@ -11,8 +11,8 @@ export default class AccountService extends Service {
    * @param user_name - 用户名
    */
   public async getUserByUserName(user_name: string) {
-    const AccountDb = getRepository(Account);
-    const UserInfo = await AccountDb.findOne({
+    const AccountTable = getRepository(Account);
+    const UserInfo = await AccountTable.findOne({
       user_name,
     });
     return UserInfo;
@@ -23,15 +23,25 @@ export default class AccountService extends Service {
    * @param userinfo - 用户注册信息
    */
   public async addAccount(userinfo: any) {
-    const AccountDb = getRepository(Account);
+    const AccountTable = getRepository(Account);
 
     const user = new Account();
 
     Object.assign(user, userinfo);
 
-    // return await AccountDb.save(user);
-    await AccountDb.insert(user);
+    // return await AccountTable.save(user);
+    await AccountTable.insert(user);
 
     return user;
+  }
+
+  /**
+   * 更新用户信息
+   * @param userinfo 用户信息
+   */
+  public async updateAccount(userinfo: Account) {
+    const AccountTable = getRepository(Account);
+
+    return await AccountTable.save(userinfo);
   }
 }

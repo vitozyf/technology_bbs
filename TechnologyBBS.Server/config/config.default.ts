@@ -1,5 +1,5 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-
+import AppConfig from '../config';
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -25,10 +25,7 @@ export default (appInfo: EggAppInfo) => {
   const bizConfig = {
     typeorm: {
       type: 'mysql',
-      host: '47.98.240.182',
-      port: 3306,
-      username: 'root',
-      password: 'zyf535069215',
+      ...AppConfig.dev.mysql,
       database: 'technology_bbs_dev',
       entities: [__dirname + '/../app/model/*.ts'],
       synchronize: true,
@@ -41,7 +38,7 @@ export default (appInfo: EggAppInfo) => {
     jwtverify: {
       name: 'BBS ',
       expiresIn: '1h',
-      ignoreUrl: ['signin', 'login'],
+      ignoreUrl: ['signin', 'login', 'changePwd'], // jwt忽略验证的路由
     },
   };
 

@@ -1,5 +1,5 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-
+import AppConfig from '../config';
 export default (appInfo: EggAppInfo) => {
   const config: PowerPartial<EggAppConfig> = {};
   config.logger = {
@@ -21,10 +21,7 @@ export default (appInfo: EggAppInfo) => {
   const bizConfig = {
     typeorm: {
       type: 'mysql',
-      host: '47.98.240.182',
-      port: 3306,
-      username: 'root',
-      password: 'zyf535069215',
+      ...AppConfig.pro.mysql,
       database: 'technology_bbs_pro',
       entities: [__dirname + '/../app/model/*.js'],
       synchronize: false,

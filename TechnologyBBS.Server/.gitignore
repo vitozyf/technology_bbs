@@ -18,3 +18,7 @@ config/**/*.js
 app/**/*.map
 test/**/*.map
 config/**/*.map
+config/
+config.ts
+config.js
+ormlogs.log

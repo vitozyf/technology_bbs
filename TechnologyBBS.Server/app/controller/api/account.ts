@@ -61,9 +61,27 @@ export default class AccountController extends Controller {
    */
   public async changePwd() {
     const { ctx } = this;
-    const { password, new_password } = ctx.request.body;
+    const { user_name, password, new_password } = ctx.request.body;
+    const md5password = md5(password, ctx.app.config.passwordKey);
+    const md5newpassword = md5(new_password, ctx.app.config.passwordKey);
+    if (!user_name) {
+      return ctx.sendRes(1, null, '用户名不能为空');
+    }
     if (!password || !new_password) {
       return ctx.sendRes(1, null, '旧密码或新密码不能为空');
     }
+    const User = await ctx.service.account.getUserByUserName(user_name);
+    if (!User) {
+      return ctx.sendRes(1, null, '没有找到用户名');
+    }
+    if (User.password !== md5password) {
+      return ctx.sendRes(1, null, '用户旧密码错误');
+    }
+    if (md5password === md5newpassword) {
+      return ctx.sendRes(1, null, '新旧密码重复');
+    }
+    User.password = md5newpassword;
+    ctx.service.account.updateAccount(User);
+    return ctx.sendRes(0, null, '密码修改成功');
   }
 }
