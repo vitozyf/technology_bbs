@@ -14,8 +14,8 @@ export default function jwtverify(): any {
       const token = authorization
         ? authorization.replace(new RegExp(app.config.jwtverify.name), '')
         : ''; // 获取jwt
-      const secret = app.config.jwt.secret;
-      await app.jwt.verify(token, secret); // // 解密，获取payload
+      const secret = app.config.jwt_secret;
+      await app.jwt.verify(token, secret); // 解密，获取payload
     }
     await next();
   };

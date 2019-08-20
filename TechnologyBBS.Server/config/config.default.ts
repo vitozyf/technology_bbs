@@ -31,14 +31,11 @@ export default (appInfo: EggAppInfo) => {
       synchronize: true,
       logging: ['error'],
     },
-    passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
-    jwt: {
-      secret: '&$^$&#NBDJBJS&^%$()_+DN',
-    },
+    ...AppConfig.dev.secret,
     jwtverify: {
       name: 'BBS ',
-      expiresIn: '1h',
-      ignoreUrl: ['signin', 'login', 'changePwd'], // jwt忽略验证的路由
+      expiresIn: '24h',
+      ignoreUrl: ['signin', 'login'], // jwt忽略验证的路由
     },
   };
 

@@ -1,12 +1,18 @@
 import { Application } from 'egg';
+import { Account } from '../model/account';
+
+const jwt = require('jsonwebtoken');
 
 export default {
-  setJwt(user_name: string): string {
+  jwt,
+  setJwt(User: Account): string {
     const vm = this as Application;
     const userToken = {
-      name: user_name,
+      user_name: User.user_name,
+      id: User.id,
+      is_block: User.is_block,
     };
-    const Token = vm.jwt.sign(userToken, vm.config.jwt.secret, {
+    const Token = jwt.sign(userToken, vm.config.jwt_secret, {
       expiresIn: vm.config.jwtverify.expiresIn,
     });
     return `${vm.config.jwtverify.name}${Token}`;

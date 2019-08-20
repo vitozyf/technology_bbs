@@ -14,6 +14,7 @@ export default class AccountService extends Service {
     const AccountTable = getRepository(Account);
     const UserInfo = await AccountTable.findOne({
       user_name,
+      is_delete: false,
     });
     return UserInfo;
   }

@@ -19,13 +19,13 @@ export default class AccountController extends Controller {
       return ctx.sendRes(1, null, '该用户名未注册');
     }
 
-    if (Users.password !== md5(password, app.config.passwordKey)) {
+    if (Users.password !== md5(password, app.config.password_key)) {
       return ctx.sendRes(1, null, '密码错误');
     }
 
     ctx.helper.delKey(Users, 'password');
 
-    return ctx.sendRes(0, { Users, Token: app.setJwt(user_name) }, '登录成功');
+    return ctx.sendRes(0, { Users, Token: app.setJwt(Users) }, '登录成功');
   }
 
   /**
@@ -45,7 +45,7 @@ export default class AccountController extends Controller {
 
     const NewUser = await ctx.service.account.addAccount({
       user_name,
-      password: md5(password, app.config.passwordKey),
+      password: md5(password, app.config.password_key),
       mobile,
       location,
       gender,
@@ -62,8 +62,8 @@ export default class AccountController extends Controller {
   public async changePwd() {
     const { ctx } = this;
     const { user_name, password, new_password } = ctx.request.body;
-    const md5password = md5(password, ctx.app.config.passwordKey);
-    const md5newpassword = md5(new_password, ctx.app.config.passwordKey);
+    const md5password = md5(password, ctx.app.config.password_key);
+    const md5newpassword = md5(new_password, ctx.app.config.password_key);
     if (!user_name) {
       return ctx.sendRes(1, null, '用户名不能为空');
     }

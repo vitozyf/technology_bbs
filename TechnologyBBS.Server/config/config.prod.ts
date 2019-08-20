@@ -27,10 +27,7 @@ export default (appInfo: EggAppInfo) => {
       synchronize: false,
       logging: 'all',
     },
-    passwordKey: '~+!_@)#($*%&^pkujdhtnmbz++__&^%./<?',
-    jwt: {
-      secret: 'ajhdk**#&%^&#*!^@%*HD(&#^',
-    },
+    ...AppConfig.pro.secret,
   };
 
   // the return config will combines to EggAppConfig

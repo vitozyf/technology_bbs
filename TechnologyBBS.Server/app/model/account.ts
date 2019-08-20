@@ -17,8 +17,17 @@ export class Account {
     type: 'tinyint',
     default: 0,
     select: false,
+    transformer: {
+      from(value) {
+        return !!value;
+      },
+
+      to(value) {
+        return value ? 1 : 0;
+      },
+    },
   })
-  is_delete: number;
+  is_delete: boolean;
 
   @Column({
     length: 500,
