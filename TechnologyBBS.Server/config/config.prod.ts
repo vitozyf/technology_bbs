@@ -27,7 +27,7 @@ export default (appInfo: EggAppInfo) => {
       synchronize: false,
       logging: 'all',
     },
-    ...AppConfig.pro.secret,
+    ...AppConfig.pro,
   };
 
   // the return config will combines to EggAppConfig

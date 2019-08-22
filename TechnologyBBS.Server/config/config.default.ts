@@ -31,15 +31,14 @@ export default (appInfo: EggAppInfo) => {
       synchronize: true,
       logging: ['error'],
     },
-    ...AppConfig.dev.secret,
+    ...AppConfig.dev,
     jwtverify: {
-      name: 'BBS ',
+      name: 'BBS',
       expiresIn: '24h',
       ignoreUrl: ['signin', 'login'], // jwt忽略验证的路由
     },
   };
 
-  // the return config will combines to EggAppConfig
   return {
     ...config,
     ...bizConfig,

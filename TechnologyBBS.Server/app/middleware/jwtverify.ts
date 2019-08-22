@@ -12,10 +12,10 @@ export default function jwtverify(): any {
     if (!IgnoreUrl) {
       const authorization = ctx.header.authorization;
       const token = authorization
-        ? authorization.replace(new RegExp(app.config.jwtverify.name), '')
+        ? authorization.replace(new RegExp(`${app.config.jwtverify.name} `), '')
         : ''; // 获取jwt
       const secret = app.config.jwt_secret;
-      await app.jwt.verify(token, secret); // 解密，获取payload
+      await app.jwt.verify(token, secret); // 解密验证
     }
     await next();
   };
