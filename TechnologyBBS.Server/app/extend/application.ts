@@ -1,6 +1,5 @@
 import { Application } from 'egg';
 import { Account } from '../model/account';
-
 const jwt = require('jsonwebtoken');
 
 export default {

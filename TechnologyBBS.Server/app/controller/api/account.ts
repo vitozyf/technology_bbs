@@ -61,6 +61,7 @@ export default class AccountController extends Controller {
    */
   public async changePwd() {
     const { ctx } = this;
+    // console.log(ctx.getPayload());
     const { user_name, password, new_password } = ctx.request.body;
     const md5password = md5(password, ctx.app.config.password_key);
     const md5newpassword = md5(new_password, ctx.app.config.password_key);
