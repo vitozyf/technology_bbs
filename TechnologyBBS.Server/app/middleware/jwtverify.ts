@@ -12,6 +12,7 @@ export default function jwtverify(): any {
     if (!IgnoreUrl) {
       // redis验证
       const UserAuth = ctx.getPayload();
+      app.redis.select(app.config.redis.userDb);
       const RedisUserInfo = await app.redis.getAsync(UserAuth.id);
       try {
         const UserInfo = JSON.parse(RedisUserInfo);

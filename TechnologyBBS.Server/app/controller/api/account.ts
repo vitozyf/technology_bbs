@@ -30,6 +30,7 @@ export default class AccountController extends Controller {
       expires_in: new Date(Date.now() + app.config.jwtverify.expiresIn),
     });
 
+    app.redis.select(app.config.redis.userDb);
     await app.redis.setAsync(User.id, JSON.stringify(RedisUserInfo));
 
     // 设置jwt
