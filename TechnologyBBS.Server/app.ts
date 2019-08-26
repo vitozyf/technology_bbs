@@ -38,7 +38,6 @@ class App {
   async didLoad() {
     // 所有的配置已经加载完毕
     // 可以用来加载应用自定义的文件，启动自定义的服务
-    const app = this.app;
     try {
       // typeorm
       await connectDB(this.app);
@@ -46,32 +45,11 @@ class App {
       // redis
       const client = await redis.createClient(this.app.config.redis);
 
-      client.getAsync = (key: string) => {
-        return new Promise((resove, reject) => {
-          client.get(key, (err, reply) => {
-            if (err) {
-              return reject(err);
-            }
-            return resove(reply);
-          });
-        });
-      };
-      const expiresIn = app.config.jwtverify.expiresIn;
-      client.setAsync = (key: string, value: string) => {
-        return new Promise((resove, reject) => {
-          client.set(key, value, 'PX', expiresIn, (err, reply) => {
-            if (err) {
-              return reject(err);
-            }
-            return resove(reply);
-          });
-        });
-      };
       client.on('error', err => {
         this.app.logger.error(err);
       });
       client.on('connect', () => {
-        this.app.redis = client;
+        this.app.setClient(client);
         this.app.logger.info('[redis]', 'redis链接成功');
       });
     } catch (error) {

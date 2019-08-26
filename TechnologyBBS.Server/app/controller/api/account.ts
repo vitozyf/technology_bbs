@@ -30,7 +30,7 @@ export default class AccountController extends Controller {
       expires_in: new Date(Date.now() + app.config.jwtverify.expiresIn),
     });
 
-    app.redis.select(app.config.redis.userDb);
+    await app.redis.selectAsync(app.config.redis.userDb);
     await app.redis.setAsync(User.id, JSON.stringify(RedisUserInfo));
 
     // 设置jwt
@@ -77,7 +77,6 @@ export default class AccountController extends Controller {
    */
   public async changePwd() {
     const { ctx } = this;
-    // console.log(ctx.getPayload());
     const { user_name, password, new_password } = ctx.request.body;
     const md5password = md5(password, ctx.app.config.password_key);
     const md5newpassword = md5(new_password, ctx.app.config.password_key);
@@ -100,5 +99,19 @@ export default class AccountController extends Controller {
     User.password = md5newpassword;
     ctx.service.account.updateAccount(User);
     return ctx.sendRes(0, null, '密码修改成功');
+  }
+
+  /**
+   * 退出登录
+   */
+  public async logout() {
+    const { ctx, app } = this;
+    const Payload = ctx.getPayload();
+    if (!Payload) {
+      return this.ctx.sendRes(1, null, '用户未登录');
+    }
+    const LoginingUser = await app.redis.getAsync(Payload.id);
+    await app.redis.delAsync(LoginingUser.id);
+    return this.ctx.sendRes(0, true, '退出登录成功');
   }
 }

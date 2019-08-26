@@ -12,10 +12,9 @@ export default function jwtverify(): any {
     if (!IgnoreUrl) {
       // redis验证
       const UserAuth = ctx.getPayload();
-      app.redis.select(app.config.redis.userDb);
-      const RedisUserInfo = await app.redis.getAsync(UserAuth.id);
+      await app.redis.selectAsync(app.config.redis.userDb);
+      const UserInfo = await app.redis.getAsync(UserAuth.id);
       try {
-        const UserInfo = JSON.parse(RedisUserInfo);
         if (!UserInfo || Date.parse(UserInfo.expires_in) - Date.now() < 0) {
           ctx.status = 401;
           ctx.body = { msg: '登录状态过期，请重新登录' };

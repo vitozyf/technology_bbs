@@ -7,4 +7,5 @@ export default app => {
   apiV1Router.post('/login', account.login);
   apiV1Router.post('/signin', account.signin);
   apiV1Router.post('/changePwd', account.changePwd);
+  apiV1Router.get('/logout', account.logout);
 };
