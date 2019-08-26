@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import { Application } from 'egg';
 
+const redis = require('redis');
+
 /**
  * handle database configuration
  * @param config typeorm-config
@@ -36,9 +38,42 @@ class App {
   async didLoad() {
     // 所有的配置已经加载完毕
     // 可以用来加载应用自定义的文件，启动自定义的服务
+    const app = this.app;
     try {
+      // typeorm
       await connectDB(this.app);
-      this.app.logger.info('[typeorm]', '数据链接成功');
+      this.app.logger.info('[typeorm]', '数据库链接成功');
+      // redis
+      const client = await redis.createClient(this.app.config.redis);
+
+      client.getAsync = (key: string) => {
+        return new Promise((resove, reject) => {
+          client.get(key, (err, reply) => {
+            if (err) {
+              return reject(err);
+            }
+            return resove(reply);
+          });
+        });
+      };
+      const expiresIn = app.config.jwtverify.expiresIn;
+      client.setAsync = (key: string, value: string) => {
+        return new Promise((resove, reject) => {
+          client.set(key, value, 'PX', expiresIn, (err, reply) => {
+            if (err) {
+              return reject(err);
+            }
+            return resove(reply);
+          });
+        });
+      };
+      client.on('error', err => {
+        this.app.logger.error(err);
+      });
+      client.on('connect', () => {
+        this.app.redis = client;
+        this.app.logger.info('[redis]', 'redis链接成功');
+      });
     } catch (error) {
       this.app.logger.error('[typeorm]', '数据库链接失败');
       this.app.logger.error(error);

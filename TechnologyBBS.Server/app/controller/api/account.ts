@@ -1,5 +1,6 @@
 import { Controller } from 'egg';
 
+const jwt = require('jsonwebtoken');
 const md5 = require('blueimp-md5');
 
 export default class AccountController extends Controller {
@@ -13,19 +14,33 @@ export default class AccountController extends Controller {
       return ctx.sendRes(1, null, '账号或密码必填');
     }
 
-    const Users = await ctx.service.account.getUserByUserName(user_name);
+    const User = await ctx.service.account.getUserByUserName(user_name);
 
-    if (!Users) {
+    if (!User) {
       return ctx.sendRes(1, null, '该用户名未注册');
     }
 
-    if (Users.password !== md5(password, app.config.password_key)) {
+    if (User.password !== md5(password, app.config.password_key)) {
       return ctx.sendRes(1, null, '密码错误');
     }
 
-    ctx.helper.delKey(Users, 'password');
+    ctx.helper.delKey(User, 'password');
 
-    return ctx.sendRes(0, { Users, Token: app.setJwt(Users) }, '登录成功');
+    const RedisUserInfo = Object.assign({}, User, {
+      expires_in: new Date(Date.now() + app.config.jwtverify.expiresIn),
+    });
+
+    await app.redis.setAsync(User.id, JSON.stringify(RedisUserInfo));
+
+    // 设置jwt
+    const userToken = {
+      id: User.id,
+    };
+    const Token = jwt.sign(userToken, app.config.jwt_secret, {
+      expiresIn: app.config.jwtverify.expiresIn,
+    });
+
+    return ctx.sendRes(0, { User, Token }, '登录成功');
   }
 
   /**

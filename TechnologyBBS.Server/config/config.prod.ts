@@ -27,6 +27,9 @@ export default (appInfo: EggAppInfo) => {
       synchronize: false,
       logging: 'all',
     },
+    redis: {
+      ...AppConfig.pro.redis,
+    },
     ...AppConfig.pro,
   };
 

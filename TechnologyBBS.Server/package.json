@@ -28,6 +28,7 @@
     "egg-scripts": "^2.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
+    "redis": "^2.8.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.18"
   },

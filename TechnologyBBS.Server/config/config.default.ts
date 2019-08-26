@@ -31,12 +31,15 @@ export default (appInfo: EggAppInfo) => {
       synchronize: true,
       logging: ['error'],
     },
-    ...AppConfig.dev,
     jwtverify: {
       name: 'BBS',
-      expiresIn: '24h',
+      expiresIn: 24 * 60 * 60 * 1000, // 24h
       ignoreUrl: ['signin', 'login'], // jwt忽略验证的路由
     },
+    redis: {
+      ...AppConfig.dev.redis,
+    },
+    ...AppConfig.dev,
   };
 
   return {
