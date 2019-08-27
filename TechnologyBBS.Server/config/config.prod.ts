@@ -9,12 +9,6 @@ export default (appInfo: EggAppInfo) => {
   config.security = {
     csrf: {
       cookieName: 'csrfToken', // Cookie 中的字段名，默认为 csrfToken
-      ignore: ctx => {
-        if (CsrfIgnoreUrl.find(url => new RegExp(url).test(ctx.url))) {
-          return true;
-        }
-        return false;
-      },
     },
   };
 

@@ -26,13 +26,6 @@ export default class AccountController extends Controller {
 
     ctx.helper.delKey(User, 'password');
 
-    const RedisUserInfo = Object.assign({}, User, {
-      expires_in: new Date(Date.now() + app.config.jwtverify.expiresIn),
-    });
-
-    await app.redis.selectAsync(app.config.redis.userDb);
-    await app.redis.setAsync(User.id, JSON.stringify(RedisUserInfo));
-
     // 设置jwt
     const userToken = {
       id: User.id,
@@ -40,6 +33,15 @@ export default class AccountController extends Controller {
     const Token = jwt.sign(userToken, app.config.jwt_secret, {
       expiresIn: app.config.jwtverify.expiresIn,
     });
+
+    // 设置redis
+    const RedisUserInfo = Object.assign({}, User, {
+      expires_in: new Date(Date.now() + app.config.jwtverify.expiresIn),
+      Token,
+    });
+
+    await app.redis.selectAsync(app.config.redis.userDb);
+    await app.redis.setAsync(User.id, JSON.stringify(RedisUserInfo));
 
     return ctx.sendRes(0, { User, Token }, '登录成功');
   }

@@ -3,6 +3,7 @@ import { Application } from 'egg';
 
 interface RedisAccount extends Account {
   expires_in: string;
+  Token: string;
 }
 
 interface IRedis {
