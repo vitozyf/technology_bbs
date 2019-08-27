@@ -9,6 +9,7 @@ export default function jwtverify(): any {
     const IgnoreUrl = app.config.jwtverify.ignoreUrl.find(url => {
       return new RegExp(url).test(ctx.url);
     });
+
     if (!IgnoreUrl) {
       // redis验证
       const UserToken = ctx.getToken();
@@ -32,6 +33,7 @@ export default function jwtverify(): any {
       // jwt验证
       await jwt.verify(UserToken, app.config.jwt_secret); // 解密验证
     }
+
     await next();
   };
 }

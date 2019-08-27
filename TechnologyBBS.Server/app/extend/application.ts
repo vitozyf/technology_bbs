@@ -5,7 +5,6 @@ interface RedisAccount extends Account {
   expires_in: string;
   Token: string;
 }
-
 interface IRedis {
   get: (key: string) => string;
   getAsync: (key: string) => RedisAccount;
@@ -16,8 +15,10 @@ interface IRedis {
   del: (key: string) => boolean;
   delAsync: (key: string) => boolean;
 }
+
 export default {
   redis: {} as IRedis,
+
   setClient(client: any) {
     client.getAsync = (key: string) => {
       return new Promise((resove, reject) => {
