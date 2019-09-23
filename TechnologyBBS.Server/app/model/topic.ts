@@ -13,10 +13,10 @@ export class Topic {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 150 })
+  @Column({ type: 'varchar', length: 150, charset: 'utf8mb4' })
   title: string;
 
-  @Column({ type: 'varchar', length: 10000 })
+  @Column({ type: 'varchar', length: 16000, charset: 'utf8mb4' })
   content: string;
 
   @Column({
@@ -73,10 +73,10 @@ export class Topic {
   @Column({ type: 'int', default: 0 })
   collect_count: number; // 收藏量
 
-  @Column({ type: 'varchar', length: 30 })
+  @Column({ type: 'varchar', length: 30, nullable: true })
   last_reply: string; // 最后回复userid
 
-  @Column({ default: () => 'NOW()' })
+  @Column({ nullable: true, default: () => 'NOW()' })
   last_reply_at: Date; // 最后回复时间
 
   @Column({

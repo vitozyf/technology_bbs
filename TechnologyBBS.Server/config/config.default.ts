@@ -29,7 +29,7 @@ export default (appInfo: EggAppInfo) => {
       database: 'technology_bbs_dev',
       entities: [__dirname + '/../app/model/*.ts'],
       synchronize: true,
-      logging: ['error'],
+      logging: ['query', 'error'],
     },
     jwtverify: {
       name: 'BBS',

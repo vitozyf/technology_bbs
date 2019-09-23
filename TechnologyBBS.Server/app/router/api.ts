@@ -9,5 +9,5 @@ export default app => {
   apiV1Router.post('/changePwd', account.changePwd);
   apiV1Router.get('/logout', account.logout);
 
-  apiV1Router.get('/topics', topics.getTopics);
+  apiV1Router.post('/topics', topics.getTopics);
 };
