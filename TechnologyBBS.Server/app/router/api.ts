@@ -2,7 +2,7 @@ export default app => {
   const { controller, router } = app;
 
   const apiV1Router = router.namespace('/api/v1');
-  const { account, topics } = controller.api;
+  const { account, topics, clocking } = controller.api;
 
   apiV1Router.post('/login', account.login);
   apiV1Router.post('/signin', account.signin);
@@ -10,4 +10,6 @@ export default app => {
   apiV1Router.get('/logout', account.logout);
 
   apiV1Router.post('/topics', topics.getTopics);
+
+  apiV1Router.post('/clocking', clocking.saveClocking);
 };

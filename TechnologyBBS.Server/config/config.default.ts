@@ -34,7 +34,7 @@ export default (appInfo: EggAppInfo) => {
     jwtverify: {
       name: 'BBS',
       expiresIn: 24 * 60 * 60 * 1000, // 24h
-      ignoreUrl: ['signin', 'login', 'changePwd'], // jwt忽略验证的路由
+      ignoreUrl: ['signin', 'login', 'changePwd', 'clocking'], // jwt忽略验证的路由
     },
     redis: {
       ...AppConfig.dev.redis,
