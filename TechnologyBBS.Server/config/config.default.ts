@@ -19,6 +19,7 @@ export default (appInfo: EggAppInfo) => {
     csrf: {
       enable: false,
     },
+    domainWhiteList: ['http://localhost:8081'],
   };
 
   // add your special config in here

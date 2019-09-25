@@ -10,6 +10,7 @@ export default (appInfo: EggAppInfo) => {
     csrf: {
       cookieName: 'csrfToken', // Cookie 中的字段名，默认为 csrfToken
     },
+    domainWhiteList: ['http://vitock.cn'],
   };
 
   const bizConfig = {

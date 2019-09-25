@@ -3,13 +3,16 @@ import { Clocking } from '../model/clocking';
 import { getRepository } from 'typeorm';
 
 export default class ClockingService extends Service {
-  async saveClocking(params: any) {
+  async saveClocking(params: any[]) {
     const ClockingTable = getRepository(Clocking);
 
-    const ClockingData = new Clocking();
+    const clockingArray: Clocking[] = [];
 
-    Object.assign(ClockingData, params);
+    params.forEach(item => {
+      const ClockingData = new Clocking();
+      clockingArray.push(Object.assign(ClockingData, item));
+    });
 
-    await ClockingTable.insert(ClockingData);
+    await ClockingTable.insert(clockingArray);
   }
 }
