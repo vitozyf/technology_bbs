@@ -12,4 +12,5 @@ export default app => {
   apiV1Router.post('/topics', topics.getTopics);
 
   apiV1Router.post('/clocking', clocking.saveClocking);
+  apiV1Router.post('/attendance', clocking.saveAttendance);
 };
