@@ -5,7 +5,7 @@ export default class ClockingController extends Controller {
     const { ctx } = this;
     const params = ctx.request.body;
     await ctx.service.clocking.saveClocking(params);
-    return ctx.success(true, '保存成功');
+    return ctx.success(true, 'success');
   }
 
   async saveAttendance() {
@@ -32,8 +32,8 @@ export default class ClockingController extends Controller {
     try {
       await ctx.service.clocking.saveAttendance(params);
     } catch (error) {
-      return ctx.fail(1, '保存失败');
+      return ctx.fail(1, 'fail');
     }
-    return ctx.success(true, '保存成功');
+    return ctx.success(true, 'success');
   }
 }
